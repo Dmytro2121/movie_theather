@@ -33,7 +33,7 @@ public class Injector {
         injectors.put(mainPackageName, injector);
         return injector;
     }
-
+//
     public Object getInstance(Class certainInterface) {
         Object newInstanceOfClass = null;
         Class clazz = findClassExtendingInterface(certainInterface);
