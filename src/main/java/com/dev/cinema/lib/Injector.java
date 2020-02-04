@@ -34,6 +34,31 @@ public class Injector {
         return injector;
     }
 
+    public Object getInstance(Class certainInterface) {
+        Object newInstanceOfClass = null;
+        Class clazz = findClassExtendingInterface(certainInterface);
+        Object instanceOfCurrentClass = createInstance(clazz);
+        Field[] declaredFields = clazz.getDeclaredFields();
+        for (Field field : declaredFields) {
+            if (isFieldInitialized(field, instanceOfCurrentClass)) {
+                continue;
+            }
+            if (field.getDeclaredAnnotation(Inject.class) != null) {
+                Object classToInject = getInstance(field.getType());
+                newInstanceOfClass = getNewInstance(clazz);
+                setValueToField(field, newInstanceOfClass, classToInject);
+            } else {
+                throw new RuntimeException("Class " + field.getName() + " in class "
+                        + clazz.getName() + " hasn't annotation Inject");
+            }
+        }
+        if (newInstanceOfClass == null) {
+            return getNewInstance(clazz);
+        }
+
+        return newInstanceOfClass;
+    }
+
     private static List<Class> getClasses(String packageName)
             throws IOException, ClassNotFoundException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -76,31 +101,6 @@ public class Injector {
             }
         }
         return classes;
-    }
-
-    public Object getInstance(Class certainInterface) {
-        Object newInstanceOfClass = null;
-        Class clazz = findClassExtendingInterface(certainInterface);
-        Object instanceOfCurrentClass = createInstance(clazz);
-        Field[] declaredFields = clazz.getDeclaredFields();
-        for (Field field : declaredFields) {
-            if (isFieldInitialized(field, instanceOfCurrentClass)) {
-                continue;
-            }
-            if (field.getDeclaredAnnotation(Inject.class) != null) {
-                Object classToInject = getInstance(field.getType());
-                newInstanceOfClass = getNewInstance(clazz);
-                setValueToField(field, newInstanceOfClass, classToInject);
-            } else {
-                throw new RuntimeException("Class " + field.getName() + " in class "
-                        + clazz.getName() + " hasn't annotation Inject");
-            }
-        }
-        if (newInstanceOfClass == null) {
-            return getNewInstance(clazz);
-        }
-
-        return newInstanceOfClass;
     }
 
     private Class findClassExtendingInterface(Class certainInterface) {
