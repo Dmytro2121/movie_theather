@@ -36,6 +36,5 @@ public class Main {
         movieSessionService.add(movieSession);
         movieSessionService.findAvailableSessions(movie.getId(), LocalDate.now())
                 .forEach(System.out::println);
-
     }
 }
