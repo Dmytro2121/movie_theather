@@ -1,4 +1,4 @@
-package mate.hibernate.cinema.lib;
+package com.dev.cinema.lib;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

@@ -6,13 +6,12 @@ import javax.persistence.criteria.CriteriaQuery;
 
 import com.dev.cinema.dao.MovieDao;
 import com.dev.cinema.exceptions.DataProcessingException;
+import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.util.HibernateUtil;
-import mate.hibernate.cinema.lib.Dao;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 
 @Dao
 public class MovieDaoImpl implements MovieDao {
@@ -46,5 +45,4 @@ public class MovieDaoImpl implements MovieDao {
             throw new DataProcessingException("Error retrieving all Movies", e);
         }
     }
-
 }

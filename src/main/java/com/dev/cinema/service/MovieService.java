@@ -7,7 +7,7 @@ import com.dev.cinema.model.Movie;
 
 public interface MovieService {
 
-      Movie add(Movie movie);
-    
-      List<Movie> getAll() throws DataProcessingException;
-  }
+    Movie add(Movie movie);
+
+    List<Movie> getAll() throws DataProcessingException;
+}
