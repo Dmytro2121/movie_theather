@@ -30,7 +30,7 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
     }
 
     @Override
-    public List<CinemaHall> getAll() throws DataProcessingException {
+    public List<CinemaHall> getAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             CriteriaQuery<CinemaHall> criteriaQuery = session.getCriteriaBuilder()
                     .createQuery(CinemaHall.class);

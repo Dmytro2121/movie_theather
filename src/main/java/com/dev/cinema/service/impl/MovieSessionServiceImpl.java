@@ -1,7 +1,6 @@
 package com.dev.cinema.service.impl;
 
 import com.dev.cinema.dao.MovieSessionDao;
-import com.dev.cinema.exceptions.DataProcessingException;
 import com.dev.cinema.lib.Inject;
 import com.dev.cinema.lib.Service;
 import com.dev.cinema.model.MovieSession;
@@ -15,8 +14,7 @@ public class MovieSessionServiceImpl implements MovieSessionService {
     private static MovieSessionDao movieSessionDao;
 
     @Override
-    public List<MovieSession> findAvailableSessions(Long movieId, LocalDate date)
-            throws DataProcessingException {
+    public List<MovieSession> findAvailableSessions(Long movieId, LocalDate date) {
         return movieSessionDao.findAvailableSessions(movieId, date);
     }
 

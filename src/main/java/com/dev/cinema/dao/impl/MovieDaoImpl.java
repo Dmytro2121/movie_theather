@@ -33,7 +33,7 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public List<Movie> getAll() throws DataProcessingException {
+    public List<Movie> getAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             CriteriaQuery<Movie> criteriaQuery = session.getCriteriaBuilder()
                     .createQuery(Movie.class);

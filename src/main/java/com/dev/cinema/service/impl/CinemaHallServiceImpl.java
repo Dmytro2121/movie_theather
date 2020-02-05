@@ -1,7 +1,6 @@
 package com.dev.cinema.service.impl;
 
 import com.dev.cinema.dao.CinemaHallDao;
-import com.dev.cinema.exceptions.DataProcessingException;
 import com.dev.cinema.lib.Inject;
 import com.dev.cinema.lib.Service;
 import com.dev.cinema.model.CinemaHall;
@@ -19,7 +18,7 @@ public class CinemaHallServiceImpl implements CinemaHallService {
     }
 
     @Override
-    public List<CinemaHall> getAll() throws DataProcessingException {
+    public List<CinemaHall> getAll() {
         return cinemaHallDao.getAll();
     }
 }
