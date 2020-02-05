@@ -1,13 +1,11 @@
 package com.dev.cinema.service.impl;
 
-import java.util.List;
-
 import com.dev.cinema.dao.MovieDao;
-import com.dev.cinema.exceptions.DataProcessingException;
 import com.dev.cinema.lib.Inject;
 import com.dev.cinema.lib.Service;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.service.MovieService;
+import java.util.List;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -20,7 +18,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Movie> getAll() throws DataProcessingException {
+    public List<Movie> getAll() {
         return movieDao.getAll();
     }
 }
