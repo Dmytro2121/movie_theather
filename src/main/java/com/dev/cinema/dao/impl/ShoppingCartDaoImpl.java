@@ -8,6 +8,7 @@ import com.dev.cinema.model.User;
 import com.dev.cinema.util.HibernateUtil;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -34,11 +35,12 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     @Override
     public ShoppingCart getByUser(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<ShoppingCart> cq = cb.createQuery(ShoppingCart.class);
-            Root<ShoppingCart> root = cq.from(ShoppingCart.class);
-            cq.select(root).where(cb.equal(root.get("user"), user));
-            return session.createQuery(cq).uniqueResult();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<ShoppingCart> criteria = builder.createQuery(ShoppingCart.class);
+            Root<ShoppingCart> root = criteria.from(ShoppingCart.class);
+            root.fetch("tickets", JoinType.LEFT);
+            criteria.select(root).where(builder.equal(root.get("user"), user));
+            return session.createQuery(criteria).uniqueResult();
         } catch (Exception e) {
             throw new DataProcessingException("Couldn't find ShoppingCart of user " + user, e);
         }
