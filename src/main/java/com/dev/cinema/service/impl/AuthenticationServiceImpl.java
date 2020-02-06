@@ -12,7 +12,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private static UserService userService;
 
     @Override
-    public User login(String email, String password) {
+    public User login(String email, String password)
+            throws AuthenticationException {
         User user = userService.findByEmail(email);
         if (user != null && user.getPassword()
                 .equals(HashUtil.hashPassword(password, user.getSalt()))) {
@@ -23,12 +24,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public User register(String email, String password) {
-        if (userService.findByEmail(email) == null) {
-            User user = new User();
-            user.setEmail(email);
-            user.setPassword(password);
-            return userService.add(user);
-        }
-        throw new AuthenticationException("User with same email already exist");
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(password);
+        return userService.add(user);
     }
 }

@@ -1,5 +1,6 @@
 package com.dev.cinema;
 
+import com.dev.cinema.exceptions.AuthenticationException;
 import com.dev.cinema.exceptions.DataProcessingException;
 import com.dev.cinema.lib.Injector;
 import com.dev.cinema.model.CinemaHall;
@@ -16,7 +17,8 @@ import java.time.LocalDateTime;
 public class Main {
     private static Injector injector = Injector.getInstance("com.dev.cinema");
 
-    public static void main(String[] args) throws DataProcessingException {
+    public static void main(String[] args)
+            throws DataProcessingException, AuthenticationException {
         Movie movie = new Movie();
         movie.setTitle("Fast and Furious 9");
         MovieService movieService = (MovieService) injector.getInstance(MovieService.class);
