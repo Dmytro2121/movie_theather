@@ -13,7 +13,7 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private String desctription;
+    private String description;
 
     public Long getId() {
         return id;
@@ -31,18 +31,18 @@ public class Movie {
         this.title = tittle;
     }
 
-    public String getDesctription() {
-        return desctription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesctription(String desctription) {
-        this.desctription = desctription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
     public String toString() {
         return "Movie{"
                 + "id=" + id + ", title='" + title + '\''
-                + ", desctription='" + desctription + '\'' + '}';
+                + ", desctription='" + description + '\'' + '}';
     }
 }
