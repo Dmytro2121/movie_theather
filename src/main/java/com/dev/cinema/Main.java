@@ -17,6 +17,7 @@ import com.dev.cinema.service.OrderService;
 import com.dev.cinema.service.ShoppingCartService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Main {
     private static Injector injector = Injector.getInstance("com.dev.cinema");
@@ -71,6 +72,7 @@ public class Main {
 
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
         Order order = orderService.completeOrder(user1);
-        order.getTickets().forEach(System.out::println);
+        List<Order> orderHistory = orderService.getOrderHistory(user1);
+        orderHistory.forEach(System.out::println);
     }
 }
