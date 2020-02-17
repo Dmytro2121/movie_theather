@@ -10,9 +10,9 @@ import com.dev.cinema.util.HashUtil;
 
 public class AuthenticationServiceImpl implements AuthenticationService {
     @Inject
-    private static UserService userService;
+    private UserService userService;
     @Inject
-    private static ShoppingCartService shoppingCartService;
+    private ShoppingCartService shoppingCartService;
 
     @Override
     public User login(String email, String password)
