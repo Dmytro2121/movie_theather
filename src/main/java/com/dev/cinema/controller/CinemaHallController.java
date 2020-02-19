@@ -23,11 +23,11 @@ public class CinemaHallController {
     }
 
     @PostMapping(value = "/add")
-    public void addCinemaHall(@RequestBody CinemaHallRequestDto cinemaHallRequestDto) {
+    public CinemaHall addCinemaHall(@RequestBody CinemaHallRequestDto cinemaHallRequestDto) {
         CinemaHall cinemaHall = new CinemaHall();
         cinemaHall.setCapacity(cinemaHallRequestDto.getCapacity());
         cinemaHall.setDescription(cinemaHallRequestDto.getDescription());
-        cinemaHallService.add(cinemaHall);
+        return cinemaHallService.add(cinemaHall);
     }
 
     @GetMapping(value = "/all")

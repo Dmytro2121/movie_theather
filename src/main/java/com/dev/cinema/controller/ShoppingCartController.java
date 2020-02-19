@@ -1,6 +1,7 @@
 package com.dev.cinema.controller;
 
 import com.dev.cinema.model.MovieSession;
+import com.dev.cinema.model.ShoppingCart;
 import com.dev.cinema.model.Ticket;
 import com.dev.cinema.model.User;
 import com.dev.cinema.model.dto.MovieSessionRequestDto;
@@ -38,11 +39,12 @@ public class ShoppingCartController {
     }
 
     @PostMapping(value = "/addmoviesession")
-    public void addMovieSession(@RequestBody MovieSessionRequestDto movieSessionDto,
-                                @RequestParam Long userId) {
+    public ShoppingCart addMovieSession(@RequestBody MovieSessionRequestDto movieSessionDto,
+                                        @RequestParam Long userId) {
         User user = userService.get(userId);
         MovieSession movieSession = transferDtoToMovieSession(movieSessionDto);
         shoppingCartService.addSession(movieSession, user);
+        return shoppingCartService.getByUser(user);
     }
 
     @GetMapping(value = "/byuser")

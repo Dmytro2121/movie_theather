@@ -1,5 +1,6 @@
 package com.dev.cinema.controller;
 
+import com.dev.cinema.model.Order;
 import com.dev.cinema.model.Ticket;
 import com.dev.cinema.model.User;
 import com.dev.cinema.model.dto.TicketResponseDto;
@@ -26,9 +27,9 @@ public class OrderController {
     }
 
     @PostMapping(value = "/complete")
-    public void completeOrder(@RequestBody UserRequestDto userDto) {
+    public Order completeOrder(@RequestBody UserRequestDto userDto) {
         User user = userService.findByEmail(userDto.getEmail());
-        orderService.completeOrder(user);
+        return orderService.completeOrder(user);
     }
 
     @GetMapping(value = "/all")

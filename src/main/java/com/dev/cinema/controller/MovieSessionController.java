@@ -43,8 +43,10 @@ public class MovieSessionController {
     }
 
     @PostMapping(value = "/add")
-    public void addMovieSessions(@RequestBody MovieSessionRequestDto movieSessionRequestDto) {
-        movieSessionService.add(transferDtoToMovieSession(movieSessionRequestDto));
+    public MovieSession addMovieSessions(@RequestBody MovieSessionRequestDto
+                                                     movieSessionRequestDto) {
+        return movieSessionService.add(
+                transferDtoToMovieSession(movieSessionRequestDto));
     }
 
     private MovieSessionResponseDto transferMovieSessionToDto(MovieSession movieSession) {
