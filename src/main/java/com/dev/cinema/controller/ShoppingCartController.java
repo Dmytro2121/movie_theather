@@ -44,12 +44,12 @@ public class ShoppingCartController {
         User user = userService.get(userId);
         MovieSession movieSession = transferDtoToMovieSession(movieSessionDto);
         shoppingCartService.addSession(movieSession, user);
-        return shoppingCartService.getByUser(user);
+        return shoppingCartService.getByUser(userId);
     }
 
     @GetMapping(value = "/byuser")
     public List<TicketResponseDto> getByUser(@RequestParam Long userId) {
-        return shoppingCartService.getByUser(userService.get(userId)).getTickets().stream()
+        return shoppingCartService.getByUser(userId).getTickets().stream()
                 .map(this::transferTicketToDto).collect(Collectors.toList());
     }
 

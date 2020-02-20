@@ -3,7 +3,6 @@ package com.dev.cinema.dao.impl;
 import com.dev.cinema.dao.OrderDao;
 import com.dev.cinema.exceptions.DataProcessingException;
 import com.dev.cinema.model.Order;
-import com.dev.cinema.model.User;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -40,13 +39,13 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public List<Order> getUserOrders(User user) {
+    public List<Order> getUserOrders(Long userId) {
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Order> cq = cb.createQuery(Order.class);
             Root<Order> root = cq.from(Order.class);
             root.fetch("tickets", JoinType.LEFT);
-            cq.select(root).distinct(true).where(cb.equal(root.get("user"), user));
+            cq.select(root).distinct(true).where(cb.equal(root.get("user"), userId));
             return session.createQuery(cq).getResultList();
         } catch (Exception e) {
             throw new DataProcessingException("Can't get user Orders", e);
