@@ -3,7 +3,6 @@ package com.dev.cinema.dao.impl;
 import com.dev.cinema.dao.ShoppingCartDao;
 import com.dev.cinema.exceptions.DataProcessingException;
 import com.dev.cinema.model.ShoppingCart;
-import com.dev.cinema.model.User;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
@@ -39,16 +38,16 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     }
 
     @Override
-    public ShoppingCart getByUser(User user) {
+    public ShoppingCart getByUser(Long userId) {
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<ShoppingCart> criteria = builder.createQuery(ShoppingCart.class);
             Root<ShoppingCart> root = criteria.from(ShoppingCart.class);
             root.fetch("tickets", JoinType.LEFT);
-            criteria.select(root).where(builder.equal(root.get("user"), user));
+            criteria.select(root).where(builder.equal(root.get("user"), userId));
             return session.createQuery(criteria).uniqueResult();
         } catch (Exception e) {
-            throw new DataProcessingException("Couldn't find ShoppingCart of user " + user, e);
+            throw new DataProcessingException("Couldn't find ShoppingCart of user " + userId, e);
         }
     }
 

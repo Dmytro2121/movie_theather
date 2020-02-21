@@ -23,7 +23,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order completeOrder(User user) {
-        ShoppingCart shoppingCart = shoppingCartService.getByUser(user);
+        ShoppingCart shoppingCart = shoppingCartService.getByUser(user.getId());
         Order order = new Order();
         order.setTickets(shoppingCart.getTickets());
         order.setUser(user);
@@ -33,7 +33,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getOrderHistory(User user) {
-        return orderDao.getUserOrders(user);
+    public List<Order> getAll() {
+        return orderDao.getAll();
+    }
+
+    @Override
+    public List<Order> getOrderHistory(Long userId) {
+        return orderDao.getUserOrders(userId);
     }
 }
