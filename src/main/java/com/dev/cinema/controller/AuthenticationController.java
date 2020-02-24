@@ -1,7 +1,9 @@
 package com.dev.cinema.controller;
 
 import com.dev.cinema.exceptions.AuthenticationException;
+import com.dev.cinema.exceptions.DataProcessingException;
 import com.dev.cinema.model.User;
+import com.dev.cinema.model.dto.UserRegistrationDto;
 import com.dev.cinema.model.dto.UserRequestDto;
 import com.dev.cinema.service.AuthenticationService;
 import org.apache.log4j.Logger;
@@ -19,8 +21,13 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/register")
-    public User registerUser(@RequestBody UserRequestDto userDto) {
-        return authenticationService.register(userDto.getEmail(), userDto.getPassword());
+
+    public User registerUser(@RequestBody UserRegistrationDto userDto) {
+        if (userDto.getPassword().equals(userDto.getRepeatPassword())) {
+            return authenticationService.register(userDto.getEmail(), userDto.getPassword());
+        } else {
+            throw new DataProcessingException("Password should match");
+        }
     }
 
     @PostMapping(value = "/login")
