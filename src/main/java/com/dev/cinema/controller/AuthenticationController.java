@@ -2,8 +2,10 @@ package com.dev.cinema.controller;
 
 import com.dev.cinema.exceptions.AuthenticationException;
 import com.dev.cinema.model.User;
+import com.dev.cinema.model.dto.UserRegistrationDto;
 import com.dev.cinema.model.dto.UserRequestDto;
 import com.dev.cinema.service.AuthenticationService;
+import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,12 +21,12 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/register")
-    public User registerUser(@RequestBody UserRequestDto userDto) {
+    public User registerUser(@RequestBody @Valid UserRegistrationDto userDto) {
         return authenticationService.register(userDto.getEmail(), userDto.getPassword());
     }
 
     @PostMapping(value = "/login")
-    public String login(@RequestBody UserRequestDto userDto) {
+    public String login(@RequestBody @Valid UserRequestDto userDto) {
         try {
             authenticationService.login(userDto.getEmail(), userDto.getPassword());
             return "Success";
