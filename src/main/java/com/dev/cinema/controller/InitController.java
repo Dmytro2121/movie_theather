@@ -1,8 +1,8 @@
 package com.dev.cinema.controller;
 
-import com.dev.cinema.dao.RoleDao;
 import com.dev.cinema.model.Role;
 import com.dev.cinema.model.User;
+import com.dev.cinema.service.RoleService;
 import com.dev.cinema.service.UserService;
 import javax.annotation.PostConstruct;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class InitController {
     private UserService userService;
-    private RoleDao roleDao;
+    private RoleService roleService;
     private PasswordEncoder passwordEncoder;
 
-    public InitController(UserService userService,
-                          RoleDao roleDao, PasswordEncoder passwordEncoder) {
+    public InitController(UserService userService, RoleService roleService,
+                          PasswordEncoder passwordEncoder) {
         this.userService = userService;
-        this.roleDao = roleDao;
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -25,10 +25,10 @@ public class InitController {
     private void setRoles() {
         Role adminRole = new Role();
         adminRole.setRoleName("ADMIN");
-        roleDao.add(adminRole);
+        roleService.add(adminRole);
         Role userRole = new Role();
         userRole.setRoleName("USER");
-        roleDao.add(userRole);
+        roleService.add(userRole);
 
         User user = new User();
         user.setEmail("a@a.ua");

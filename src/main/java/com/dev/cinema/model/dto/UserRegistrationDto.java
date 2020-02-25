@@ -1,15 +1,17 @@
 package com.dev.cinema.model.dto;
 
 import com.dev.cinema.security.EmailValidation;
+import com.dev.cinema.security.PasswordMatch;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@PasswordMatch
 public class UserRegistrationDto {
     @NotNull
     @EmailValidation
     private String email;
     @NotNull
-    @Size(min = 4)
+    @Size(min = 3)
     private String password;
     @NotNull
     private String repeatPassword;
